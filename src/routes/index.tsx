@@ -1,22 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Navbar } from "@/components/vamu/Navbar";
+import { Navbar, BottomNav } from "@/components/vamu/Navbar";
 import { Hero } from "@/components/vamu/Hero";
 import { Portfolio } from "@/components/vamu/Portfolio";
 import { About } from "@/components/vamu/About";
 import { Contact } from "@/components/vamu/Contact";
 import { Footer } from "@/components/vamu/Footer";
+import { PhoneFrame } from "@/components/vamu/PhoneFrame";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vamu Arts — Celebrating Life Through Art" },
+      { title: "Unique Arts & Crafts — Celebrating Life Through Art" },
       {
         name: "description",
         content:
-          "Bespoke embroidery, hoop art and handcrafted keepsakes for weddings, birthdays and life's most beautiful moments.",
+          "A soulful mobile experience for bespoke embroidery, hoop art and handcrafted keepsakes for weddings, birthdays and life's most beautiful moments.",
       },
-      { property: "og:title", content: "Vamu Arts — Celebrating Life Through Art" },
+      { property: "og:title", content: "Unique Arts & Crafts — Celebrating Life Through Art" },
       {
         property: "og:description",
         content:
@@ -29,13 +30,14 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="relative">
+    <PhoneFrame>
       <Navbar />
       <Hero />
       <Portfolio />
       <About />
       <Contact />
       <Footer />
-    </main>
+      <BottomNav />
+    </PhoneFrame>
   );
 }

@@ -4,12 +4,12 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-gradient pt-24"
+      className="relative min-h-[600px] flex items-center justify-center overflow-hidden bg-hero-gradient pt-6 pb-16 px-6"
     >
       {/* Decorative leaves */}
       <motion.svg
         aria-hidden
-        className="absolute -left-16 top-24 w-72 text-primary/25"
+        className="absolute -left-10 top-10 w-44 text-primary/20"
         viewBox="0 0 200 200"
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
@@ -22,7 +22,7 @@ export function Hero() {
       </motion.svg>
       <motion.svg
         aria-hidden
-        className="absolute -right-10 bottom-10 w-80 text-secondary/40 animate-float-slow"
+        className="absolute -right-8 bottom-8 w-52 text-secondary/35 animate-float-slow"
         viewBox="0 0 200 200"
       >
         <path
@@ -32,61 +32,69 @@ export function Hero() {
       </motion.svg>
       <div className="absolute inset-0 leaf-deco pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10 text-center">
+      <div className="relative z-10 text-center">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-xs md:text-sm tracking-[0.45em] uppercase text-foreground/60 mb-6"
+          className="text-[10px] tracking-[0.5em] uppercase text-foreground/55 mb-5"
         >
-          Handcrafted · Bespoke · Heartfelt
+          Handcrafted · Soulful · Bespoke
         </motion.p>
+
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.15 }}
-          className="font-script text-7xl md:text-[10rem] leading-none shimmer-text"
+          className="font-script text-7xl leading-[0.9] shimmer-text"
         >
-          Vamu Arts
+          Unique
         </motion.h1>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.3 }}
+          className="font-display tracking-[0.45em] uppercase text-foreground/75 text-sm mt-3"
+        >
+          Arts &amp; Crafts
+        </motion.h2>
+
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 0.9, delay: 0.5 }}
+          className="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+        />
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.45 }}
-          className="font-display italic text-xl md:text-2xl text-foreground/75 mt-6 max-w-2xl mx-auto"
+          transition={{ duration: 0.9, delay: 0.6 }}
+          className="font-display italic text-lg text-foreground/75 mt-5 max-w-xs mx-auto leading-relaxed"
         >
-          Bespoke embroidery, hoop art &amp; keepsakes for weddings, birthdays
-          and the moments worth remembering.
+          Where every stitch tells a story, and every brushstroke holds a heartbeat.
         </motion.p>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.65 }}
-          className="mt-10 flex items-center justify-center gap-4 flex-wrap"
+          transition={{ duration: 0.9, delay: 0.8 }}
+          className="mt-8 flex flex-col items-center gap-3"
         >
           <a
             href="#portfolio"
-            className="glow-btn rounded-full bg-primary text-primary-foreground px-8 py-3 text-sm tracking-widest uppercase"
+            className="glow-btn pulse-ring w-full max-w-[260px] rounded-full bg-primary text-primary-foreground py-3.5 text-[11px] tracking-[0.35em] uppercase font-medium"
           >
-            View Portfolio
+            Explore the Gallery
           </a>
           <a
             href="#contact"
-            className="glow-btn rounded-full border border-foreground/20 bg-background/60 backdrop-blur px-8 py-3 text-sm tracking-widest uppercase"
+            className="glow-btn w-full max-w-[260px] rounded-full border border-primary/30 bg-background/70 backdrop-blur py-3.5 text-[11px] tracking-[0.35em] uppercase text-foreground/80"
           >
             Commission a Piece
           </a>
         </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-foreground/40 text-xs tracking-[0.4em] uppercase"
-      >
-        Scroll
-      </motion.div>
     </section>
   );
 }
