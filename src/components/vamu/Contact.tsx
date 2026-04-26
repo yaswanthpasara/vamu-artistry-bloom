@@ -1,8 +1,35 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
+
+const WHATSAPP_NUMBER = "919492202560"; // +91 94922 02560
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const name = (fd.get("name") as string)?.trim() || "";
+    const email = (fd.get("email") as string)?.trim() || "";
+    const occasion = (fd.get("occasion") as string)?.trim() || "";
+    const date = (fd.get("date") as string)?.trim() || "";
+    const message = (fd.get("message") as string)?.trim() || "";
+
+    const text =
+      `✨ New Commission Enquiry — Unique Arts & Crafts ✨\n\n` +
+      `• Name: ${name}\n` +
+      `• Email: ${email}\n` +
+      `• Occasion: ${occasion}\n` +
+      `• Date: ${date}\n\n` +
+      `Details:\n${message}`;
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+    setSent(true);
+  };
+
   return (
     <section id="contact" className="relative py-16 px-5">
       <div className="text-center mb-8">
@@ -20,14 +47,12 @@ export function Contact() {
       </div>
 
       <motion.form
+        ref={formRef}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8 }}
-        onSubmit={(e) => {
-          e.preventDefault();
-          setSent(true);
-        }}
+        onSubmit={handleSubmit}
         className="relative rounded-3xl bg-background/85 backdrop-blur-xl border border-border/60 shadow-soft p-5 space-y-4"
       >
         <Field label="Your name" name="name" placeholder="Aanya" />
@@ -39,6 +64,7 @@ export function Contact() {
             Tell me about it
           </label>
           <textarea
+            name="message"
             required
             rows={4}
             placeholder="Names, colors, story, anything that matters…"
@@ -49,10 +75,12 @@ export function Contact() {
           type="submit"
           className="glow-btn w-full rounded-full bg-primary text-primary-foreground py-3.5 text-[11px] tracking-[0.35em] uppercase"
         >
-          {sent ? "Sent ♥" : "Send Message"}
+          {sent ? "Opened in WhatsApp ♥" : "Send Message"}
         </button>
         <p className="text-center text-xs text-foreground/55 italic font-display">
-          {sent ? "Thank you — I'll be in touch soon" : "Replies within 48 hours"}
+          {sent
+            ? "Tap send in WhatsApp to deliver your message"
+            : "Sends via WhatsApp to +91 94922 02560"}
         </p>
       </motion.form>
 
