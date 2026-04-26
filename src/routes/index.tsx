@@ -1,26 +1,41 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { Navbar } from "@/components/vamu/Navbar";
+import { Hero } from "@/components/vamu/Hero";
+import { Portfolio } from "@/components/vamu/Portfolio";
+import { About } from "@/components/vamu/About";
+import { Contact } from "@/components/vamu/Contact";
+import { Footer } from "@/components/vamu/Footer";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Vamu Arts — Celebrating Life Through Art" },
+      {
+        name: "description",
+        content:
+          "Bespoke embroidery, hoop art and handcrafted keepsakes for weddings, birthdays and life's most beautiful moments.",
+      },
+      { property: "og:title", content: "Vamu Arts — Celebrating Life Through Art" },
+      {
+        property: "og:description",
+        content:
+          "Handmade hoop art, dressed dolls, painted vases and bespoke keepsakes for the moments worth remembering.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <main className="relative">
+      <Navbar />
+      <Hero />
+      <Portfolio />
+      <About />
+      <Contact />
+      <Footer />
+    </main>
+  );
 }
