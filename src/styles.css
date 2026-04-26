@@ -152,13 +152,90 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+@theme inline {
+  --font-display: var(--font-display);
+  --font-script: var(--font-script);
+  --font-sans: var(--font-body);
+  --color-mint: var(--color-mint);
+  --color-peach: var(--color-peach);
+  --color-lavender: var(--color-lavender);
+  --color-blue: var(--color-blue);
+  --color-ivory: var(--color-ivory);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-body);
+    background-image:
+      radial-gradient(circle at 12% 18%, oklch(0.92 0.06 155 / 0.35), transparent 35%),
+      radial-gradient(circle at 88% 82%, oklch(0.92 0.07 45 / 0.3), transparent 40%),
+      radial-gradient(circle at 80% 10%, oklch(0.9 0.06 300 / 0.25), transparent 40%);
+    background-attachment: fixed;
   }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .font-script { font-family: var(--font-script); }
+  .font-display { font-family: var(--font-display); }
+  .bg-hero-gradient { background: var(--gradient-hero); }
+  .bg-soft-gradient { background: var(--gradient-soft); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+
+  .glow-btn {
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 1px 0 oklch(1 0 0 / 0.6) inset, 0 8px 24px -12px oklch(0.5 0.05 155 / 0.35);
+  }
+  .glow-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px oklch(0.72 0.09 155 / 0.5),
+      0 0 24px oklch(0.82 0.1 155 / 0.55),
+      0 14px 40px -16px oklch(0.5 0.05 155 / 0.4);
+  }
+
+  .leaf-deco {
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, oklch(0.7 0.1 155 / 0.18), transparent 50%),
+      radial-gradient(2px 2px at 70% 60%, oklch(0.75 0.08 45 / 0.18), transparent 50%),
+      radial-gradient(2px 2px at 40% 80%, oklch(0.7 0.06 300 / 0.18), transparent 50%);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-14px) rotate(2deg); }
+}
+.animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
+
+@keyframes shimmer-text {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg,
+    oklch(0.45 0.1 155),
+    oklch(0.6 0.12 45),
+    oklch(0.55 0.1 300),
+    oklch(0.45 0.1 155));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-text 8s linear infinite;
 }
