@@ -26,8 +26,9 @@ export function Contact() {
       `Details:\n${message}`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
     setSent(true);
+    // Use location.href for best mobile compatibility (opens WhatsApp app directly)
+    window.location.href = url;
   };
 
   return (
