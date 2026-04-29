@@ -73,35 +73,66 @@ export function Portfolio() {
         ))}
       </div>
 
-      {/* 2-column gallery — uniform square thumbs */}
-      <motion.div layout className="grid grid-cols-2 gap-3">
+      {/* 2-column gallery — fancy 3D entrance + shine + lift on hover */}
+      <motion.div
+        layout
+        className="grid grid-cols-2 gap-3"
+        style={{ perspective: "1200px" }}
+      >
         <AnimatePresence mode="popLayout">
           {filtered.map((p, i) => (
             <motion.figure
               key={p.title}
               layout
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.5, delay: (i % 6) * 0.05 }}
-              className="group relative overflow-hidden rounded-2xl bg-card shadow-soft border border-border/60"
+              initial={{ opacity: 0, y: 40, scale: 0.85, rotateX: -25, rotateY: 8 }}
+              animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0, rotateY: 0 }}
+              exit={{ opacity: 0, scale: 0.8, rotateX: 20, transition: { duration: 0.3 } }}
+              transition={{
+                duration: 0.7,
+                delay: (i % 6) * 0.08,
+                type: "spring",
+                stiffness: 110,
+                damping: 14,
+              }}
+              whileHover={{
+                y: -6,
+                scale: 1.03,
+                rotateZ: -0.5,
+                transition: { type: "spring", stiffness: 300, damping: 18 },
+              }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative overflow-hidden rounded-2xl bg-card shadow-soft border border-border/60 cursor-pointer"
+              style={{ transformStyle: "preserve-3d" }}
             >
               <div className="aspect-square overflow-hidden">
                 <img
                   src={p.src}
                   alt={p.title}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-active:scale-110"
+                  className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-115 group-active:scale-110"
                 />
               </div>
-              <figcaption className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-background/95 via-background/70 to-transparent">
+
+              {/* Shine sweep on hover */}
+              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                <div className="absolute -inset-y-8 -left-1/2 w-1/2 rotate-12 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-[300%] transition-all duration-[1100ms] ease-out" />
+              </div>
+
+              {/* Color wash overlay on hover */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              {/* Caption — slides up + glows on hover */}
+              <figcaption className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-background/95 via-background/75 to-transparent transform translate-y-1 group-hover:translate-y-0 transition-transform duration-500">
                 <p className="text-[8px] tracking-[0.25em] uppercase text-primary">
                   {p.category}
                 </p>
-                <p className="font-display text-sm leading-tight mt-0.5 truncate">
+                <p className="font-display text-sm leading-tight mt-0.5 truncate group-hover:text-primary transition-colors duration-300">
                   {p.title}
                 </p>
               </figcaption>
+
+              {/* Soft glow ring on hover */}
+              <div className="pointer-events-none absolute inset-0 rounded-2xl ring-0 group-hover:ring-2 ring-primary/40 transition-all duration-500" />
             </motion.figure>
           ))}
         </AnimatePresence>
