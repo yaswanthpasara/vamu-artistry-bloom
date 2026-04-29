@@ -1,13 +1,18 @@
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { submitContactMessage } from "@/server/contact.functions";
 
 const WHATSAPP_NUMBER = "919492202560"; // +91 94922 02560
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const submit = useServerFn(submitContactMessage);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -16,6 +21,21 @@ export function Contact() {
     const occasion = (fd.get("occasion") as string)?.trim() || "";
     const date = (fd.get("date") as string)?.trim() || "";
     const message = (fd.get("message") as string)?.trim() || "";
+
+    setError(null);
+    setSaving(true);
+    try {
+      const res = await submit({ data: { name, email, occasion, date, message } });
+      if (!res.ok) {
+        setError(res.error);
+        setSaving(false);
+        return;
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong saving your message. Opening WhatsApp anyway…");
+    }
+    setSaving(false);
 
     const text =
       `✨ New Commission Enquiry — Unique Arts & Crafts ✨\n\n` +
@@ -27,7 +47,6 @@ export function Contact() {
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
     setSent(true);
-    // Use location.href for best mobile compatibility (opens WhatsApp app directly)
     window.location.href = url;
   };
 
