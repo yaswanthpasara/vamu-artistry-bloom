@@ -101,11 +101,6 @@ export function Contact() {
         {error && (
           <p className="text-center text-xs text-destructive font-display">{error}</p>
         )}
-        <p className="text-center text-xs text-foreground/55 italic font-display">
-          {sent
-            ? "Saved ✓ — tap send in WhatsApp to deliver"
-            : "Saved to our inbox + sent via WhatsApp to +91 94922 02560"}
-        </p>
       </motion.form>
 
       <div className="mt-8 flex justify-center gap-3">
