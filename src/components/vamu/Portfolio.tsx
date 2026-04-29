@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 
 import img01 from "@/assets/portfolio/01.jpg";
 import img02 from "@/assets/portfolio/02.jpg";
@@ -37,10 +38,22 @@ const categories: Category[] = ["All", "Weddings", "Birthdays", "Custom"];
 
 export function Portfolio() {
   const [active, setActive] = useState<Category>("All");
+  const [selected, setSelected] = useState<Piece | null>(null);
   const filtered = useMemo(
     () => (active === "All" ? pieces : pieces.filter((p) => p.category === active)),
     [active],
   );
+
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setSelected(null);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [selected]);
 
   return (
     <section id="portfolio" className="relative py-16 px-5">
