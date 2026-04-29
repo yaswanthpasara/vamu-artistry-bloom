@@ -97,6 +97,8 @@ export function Portfolio() {
             <motion.figure
               key={p.title}
               layout
+              layoutId={`piece-${p.title}`}
+              onClick={() => setSelected(p)}
               initial={{ opacity: 0, y: 40, scale: 0.85, rotateX: -25, rotateY: 8 }}
               animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0, rotateY: 0 }}
               exit={{ opacity: 0, scale: 0.8, rotateX: 20, transition: { duration: 0.3 } }}
@@ -117,14 +119,14 @@ export function Portfolio() {
               className="group relative overflow-hidden rounded-2xl bg-card shadow-soft border border-border/60 cursor-pointer"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="aspect-square overflow-hidden">
+              <motion.div layoutId={`piece-image-${p.title}`} className="aspect-square overflow-hidden">
                 <img
                   src={p.src}
                   alt={p.title}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-115 group-active:scale-110"
                 />
-              </div>
+              </motion.div>
 
               {/* Shine sweep on hover */}
               <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
@@ -150,6 +152,65 @@ export function Portfolio() {
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {/* Lightbox — shared layout expand */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            key="lightbox"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setSelected(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background/90 backdrop-blur-xl cursor-zoom-out"
+          >
+            <motion.button
+              initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{ delay: 0.2 }}
+              onClick={(e) => { e.stopPropagation(); setSelected(null); }}
+              className="absolute top-5 right-5 z-10 h-10 w-10 rounded-full bg-background/80 border border-border flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+              aria-label="Close"
+            >
+              <X className="h-5 w-5" />
+            </motion.button>
+
+            <motion.figure
+              layoutId={`piece-${selected.title}`}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-[92vw] max-h-[88vh] rounded-3xl overflow-hidden shadow-2xl bg-card border border-border/60 cursor-default"
+              transition={{ type: "spring", stiffness: 220, damping: 28 }}
+            >
+              <motion.div
+                layoutId={`piece-image-${selected.title}`}
+                className="overflow-hidden"
+              >
+                <img
+                  src={selected.src}
+                  alt={selected.title}
+                  className="block max-w-[92vw] max-h-[78vh] w-auto h-auto object-contain"
+                />
+              </motion.div>
+              <motion.figcaption
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ delay: 0.25, duration: 0.35 }}
+                className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-background via-background/85 to-transparent"
+              >
+                <p className="text-[10px] tracking-[0.3em] uppercase text-primary mb-1">
+                  {selected.category}
+                </p>
+                <p className="font-display text-2xl text-foreground">
+                  {selected.title}
+                </p>
+              </motion.figcaption>
+            </motion.figure>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
