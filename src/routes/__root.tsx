@@ -29,14 +29,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "uniqe arts and crafs" },
+      { name: "description", content: "Unique Arts & Crafts is a mobile-first portfolio app for showcasing event artwork." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "uniqe arts and crafs" },
+      { property: "og:description", content: "Unique Arts & Crafts is a mobile-first portfolio app for showcasing event artwork." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "uniqe arts and crafs" },
+      { name: "twitter:description", content: "Unique Arts & Crafts is a mobile-first portfolio app for showcasing event artwork." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9c3da841-04df-414d-bf88-2e25b4c40d7c/id-preview-707d7d47--bf63582d-87f5-4e54-8371-f21a1546617d.lovable.app-1777469543726.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9c3da841-04df-414d-bf88-2e25b4c40d7c/id-preview-707d7d47--bf63582d-87f5-4e54-8371-f21a1546617d.lovable.app-1777469543726.png" },
     ],
     links: [
       {
