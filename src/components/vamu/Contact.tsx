@@ -93,14 +93,18 @@ export function Contact() {
         </div>
         <button
           type="submit"
-          className="glow-btn w-full rounded-full bg-primary text-primary-foreground py-3.5 text-[11px] tracking-[0.35em] uppercase"
+          disabled={saving}
+          className="glow-btn w-full rounded-full bg-primary text-primary-foreground py-3.5 text-[11px] tracking-[0.35em] uppercase disabled:opacity-60"
         >
-          {sent ? "Opened in WhatsApp ♥" : "Send Message"}
+          {saving ? "Saving…" : sent ? "Opened in WhatsApp ♥" : "Send Message"}
         </button>
+        {error && (
+          <p className="text-center text-xs text-destructive font-display">{error}</p>
+        )}
         <p className="text-center text-xs text-foreground/55 italic font-display">
           {sent
-            ? "Tap send in WhatsApp to deliver your message"
-            : "Sends via WhatsApp to +91 94922 02560"}
+            ? "Saved ✓ — tap send in WhatsApp to deliver"
+            : "Saved to our inbox + sent via WhatsApp to +91 94922 02560"}
         </p>
       </motion.form>
 
